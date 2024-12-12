@@ -1,15 +1,22 @@
 {
   "type": "module",
   "devDependencies": {
-    "@types/node": "^22.10.1",
+    "@commander-js/extra-typings": "^12.1.0",
+    "@types/node": "^22.10.2",
     "ts-jest": "^29.2.5",
-    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc && tsc-alias",
+    "execution": "node ./dist/app.js -f arguments.json"
   },
   "engines": {
     "node": "22.x"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "ts-node": "^10.9.2"
   }
 }

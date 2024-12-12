@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { validateUrl } from "../src/validation.ts";
+import { validateUrl } from "../src/validation";
 
 
 describe('Validation url', () => {
