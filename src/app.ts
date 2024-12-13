@@ -23,7 +23,6 @@ if (!cliConfig.success) {
 }
 
 const { urls, config } = cliConfig;
-console.log('TCL: config', config);
 
 const client: Client = async (url: string) => {
   const start = Date.now();
@@ -47,7 +46,7 @@ const client: Client = async (url: string) => {
   };
 };
 
-const process1 = async (
+const processCheck = async (
   urls: Array<string>,
   client: Client,
   config: Config,
@@ -82,28 +81,25 @@ const run = async (
   print: (responses: Array<Res>) => void,
   config: Config,
 ) => {
-  let firstStart = false;
   let lastExecutionTime = 0;
-
-  const processLoop = async () => {
-    if (!firstStart) {
-      firstStart = true;
-      const responses = await process1(urls, client, config);
-      lastExecutionTime = Date.now();
-      print(responses);
-    }
-    if (Date.now() - lastExecutionTime >= config.interval) {
-      const responses = await process1(urls, client, config);
-      lastExecutionTime = Date.now();
-      print(responses);
-    }
-  };
+  try {
+    const responses = await processCheck(urls, client, config);
+    lastExecutionTime = Date.now();
+    print(responses);
+  } catch (error) {
+    throw new Error('Error during initial processCheck:', { cause: error });
+  }
 
   while (true) {
     try {
-      await processLoop();
+      if (Date.now() - lastExecutionTime >= config.interval) {
+        const responses = await processCheck(urls, client, config);
+        lastExecutionTime = Date.now();
+        print(responses);
+      }
       await new Promise((resolve) => setTimeout(resolve, 5000));
-    } catch {
+    } catch (error) {
+      console.error('Error in processLoop:', error);
       break;
     }
   }
