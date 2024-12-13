@@ -33,11 +33,11 @@ export const getConfig = (): CliConfig => {
     const options = program.opts() as ProgramOptions;
     const verbose = options.verbose ?? false
     const _urls = fs.readFileSync(options.file, 'utf-8').trim().split(/\s+/);
-    const _config = JSON.parse(fs.readFileSync(options.config, 'utf-8'));
+    const { config } = JSON.parse(fs.readFileSync(options.config, 'utf-8'));
     return {
       success: true,
       urls: _urls,
-      config: { ..._config, verbose},
+      config: { ...config, verbose},
     };
   } catch (error: unknown) {
     return {
