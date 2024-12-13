@@ -4,6 +4,7 @@ export type Config = {
     interval: number;
     maxConcurrencyRequest: number;
     latencyLimit: number;
+    verbose: boolean;
 
 }; 
 type Res = {
@@ -73,10 +74,8 @@ const printVerbose = (responses: Array<Res>) => { console.log(responses)}
 
 const run = (urls: Array<string>, client: Client, print: (responses: Array<Res>) => void, config: Config) => {
   const responses = process1(urls, client,print , config)
-  console.log(responses)
 }
 
-run(urls, client, true ? printVerbose : printSilence, config)
-// --verbose -v
+run(urls, client, config.verbose ? printVerbose : printSilence, config)
 
 
