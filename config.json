@@ -1,0 +1,7 @@
+  {
+    "config": {
+      "interval": 2000,
+      "maxConcurrencyRequest": 4,
+      "latencyLimit": 1000
+    }
+  }

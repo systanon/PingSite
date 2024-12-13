@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc && tsc-alias",
-    "execution": "node ./dist/app.js -f arguments.json"
+    "execution": "node ./dist/app.js -f url_list.txt -c config.json"
   },
   "engines": {
     "node": "22.x"

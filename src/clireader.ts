@@ -2,57 +2,49 @@ import { Command } from '@commander-js/extra-typings';
 import * as fs from 'fs';
 
 const program = new Command();
-  
+
 program
-.option('-f, --file <path>', 'specify the file containing a list of URLs and config');
+  .option('-f, --file <path>', 'specify the file containing URLs')
+  .option('-c, --config <path>', 'specify the file containing config');
 
 program.parse();
 
 interface ProgramOptions {
-  file?: string;
+  file: string;
+  config: string;
 }
 
-export type Config = {
-  interval: string,
-  maxConcurrencyRequest: number,
-  latencyLimit: number,
-}
-type CliConfig = {
-  urls: Array<string> | []; 
-  config: Config | undefined;
-}
+export type CliConfig = {
+  success: boolean;
+  urls: Array<string>;
+  config: {
+    interval: number;
+    maxConcurrencyRequest: number;
+    latencyLimit: number;
+  };
+  error?: string;
+};
 
-export class CliReader {
-    private fileReader: any
-    private cliParser: Command
-    constructor(fs: any, cliParser: Command) {
-      
-      this.fileReader = fs
-      this.cliParser = cliParser
-    }
-
-    cliRead() {
-      return this.cliParser.opts();
-    }
-
-    getConfig (): CliConfig {
-      try {
-        const options: ProgramOptions = this.cliRead()
-        const content = this.fileReader.readFileSync(options.file, 'utf-8');
-        const data: CliConfig = JSON.parse(content);
-        const {urls, config} = data
-        return {
-          urls,
-          config
-        };
-      } catch {
-        return {
-            urls: [],
-            config: undefined
-        }  
-      }
-
-    }
-}
-
-export const cliReader = new CliReader(fs, program)
+export const getConfig = (): CliConfig => {
+  try {
+    const options = program.opts() as ProgramOptions;
+    const _urls = fs.readFileSync(options.file, 'utf-8').trim().split(/\s+/);
+    const _config = JSON.parse(fs.readFileSync(options.config, 'utf-8'));
+    return {
+      success: true,
+      urls: _urls,
+      config: _config,
+    };
+  } catch (error: unknown) {
+    return {
+      success: false,
+      urls: [],
+      config: {
+        interval: 0,
+        maxConcurrencyRequest: 0,
+        latencyLimit: 0,
+      },
+      error: `Unable to read file ${error}`,
+    };
+  }
+};

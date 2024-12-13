@@ -1,6 +1,11 @@
-import { cliReader, Config } from "./clireader";
+import { getConfig } from "./clireader";
 
+export type Config = {
+    interval: number;
+    maxConcurrencyRequest: number;
+    latencyLimit: number;
 
+}; 
 type Res = {
   url: string,
   statusCode: number,
@@ -12,8 +17,13 @@ type Res = {
 
 type Client = (url: string) => Promise<Res>
 
-const {urls, config} = cliReader.getConfig()
+const cliConfig = getConfig()
 
+if (!cliConfig.success) {
+  throw new Error(cliConfig.error)
+}
+
+const { urls, config } = cliConfig
 
 
 const client: Client = async (url: string) => {
@@ -36,8 +46,8 @@ const client: Client = async (url: string) => {
   }
 }
 
-const process1 = async (queue: Array<string>, client: Client, print: (responses: Array<Res>) => void, config: Config | undefined): Promise<Array<Res>> => {
-  const MAX = config?.maxConcurrencyRequest
+const process1 = async (queue: Array<string>, client: Client, print: (responses: Array<Res>) => void, config: Config): Promise<Array<Res>> => {
+  const MAX = config.maxConcurrencyRequest
   const responses: Array<Res> = []
   const greenTread = async () => {
     while (queue.length > 0) {
@@ -61,8 +71,7 @@ const printVerbose = (responses: Array<Res>) => { console.log(responses)}
 
 
 
-const run = (urls: Array<string> , client: Client, print: (responses: Array<Res>) => void, config: Config | undefined) => {
-  if(!urls.length && !config) return
+const run = (urls: Array<string>, client: Client, print: (responses: Array<Res>) => void, config: Config) => {
   const responses = process1(urls, client,print , config)
   console.log(responses)
 }
