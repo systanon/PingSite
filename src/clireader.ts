@@ -10,24 +10,6 @@ program
 
 program.parse();
 
-interface ProgramOptions {
-  file: string;
-  config: string;
-  verbose: boolean;
-}
-
-export type CliConfig = {
-  success: boolean;
-  urls: Array<string>;
-  config: {
-    interval: number;
-    maxConcurrencyRequest: number;
-    latencyLimit: number;
-    verbose: boolean
-  };
-  error?: string;
-};
-
 export const getConfig = (): CliConfig => {
   try {
     const options = program.opts() as ProgramOptions;

@@ -1,20 +1,7 @@
 import { getConfig } from './clireader';
+import { printVerbose, printSilence} from './prints'
 
-export type Config = {
-  interval: number;
-  maxConcurrencyRequest: number;
-  latencyLimit: number;
-  verbose: boolean;
-};
-type Res = {
-  url: string;
-  statusCode: number;
-  start: number;
-  latency: number;
-  slow: boolean;
-};
 
-type Client = (url: string) => Promise<Res>;
 
 const cliConfig = getConfig();
 
@@ -68,11 +55,6 @@ const processCheck = async (
   const promises = new Array(MAX).fill(() => {}).map(greenTread);
   await Promise.all(promises);
   return responses;
-};
-
-const printSilence = (responses: Array<Res>) => {};
-const printVerbose = (responses: Array<Res>) => {
-  console.log(responses);
 };
 
 const run = async (
