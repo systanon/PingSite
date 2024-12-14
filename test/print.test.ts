@@ -49,11 +49,11 @@ try {
 
   assert.deepStrictEqual(mock.logs, [expectedOutput]);
 
-  console.log("Test for printSilence done!");
+  console.log("Test for printTests done!");
 
-  console.log("All tests for print passed successfully!");
+  console.log("All tests for printTests passed successfully!");
 } catch (error) {
-  console.error("Tests failed:");
+  console.error("Tests for printTests failed:");
   console.error(error.message);
   process.exit(1);
 }

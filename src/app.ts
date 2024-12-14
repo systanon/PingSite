@@ -1,5 +1,6 @@
 import { getConfig } from './clireader';
 import { printVerbose, printSilence} from './prints'
+import { client } from './client'
 
 
 
@@ -10,28 +11,6 @@ if (!cliConfig.success) {
 }
 
 const { urls, config } = cliConfig;
-
-const client: Client = async (url: string) => {
-  const start = Date.now();
-
-  const statusCode: number = await fetch(url)
-    .then(async (res): Promise<number> => {
-      return res.status;
-    })
-    .catch(async (res): Promise<number> => {
-      return res.status;
-    });
-
-  const latency = Date.now() - start;
-
-  return {
-    url,
-    statusCode,
-    start,
-    latency,
-    slow: false,
-  };
-};
 
 const processCheck = async (
   urls: Array<string>,
