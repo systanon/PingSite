@@ -10,9 +10,9 @@
     "forceConsistentCasingInFileNames": true,           
     "strict": true,                                      
     "skipLibCheck": true,
-    "allowJs": true             
+    "allowJs": true          
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts", "src/types/global.d.ts", "/test/**/*.ts"],
   "exclude": ["node_modules"],
   "tsc-alias": {
     "resolveFullPaths": true,

@@ -1,10 +1,12 @@
 declare global {
+
   type Config = {
     interval: number;
     maxConcurrencyRequest: number;
     latencyLimit: number;
     verbose: boolean;
   };
+
   type Res = {
     url: string;
     statusCode: number;
@@ -35,4 +37,4 @@ declare global {
   
 }
 
-export {}; 
+export {Res}; 

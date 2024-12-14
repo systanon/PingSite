@@ -3,12 +3,11 @@
   "devDependencies": {
     "@commander-js/extra-typings": "^12.1.0",
     "@types/node": "^22.10.2",
-    "ts-jest": "^29.2.5",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "test": "jest",
+    "test": "npx tsx test/index.test.ts",
     "build": "tsc && tsc-alias",
     "execution": "node ./dist/app.js -f url_list.txt -c config.json -v"
   },
