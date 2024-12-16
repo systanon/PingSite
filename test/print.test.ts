@@ -1,6 +1,6 @@
 import { strict as assert } from "assert";
 import { Res } from "../src/types/global"
-import { printSilence, errorStatus } from "../src/prints"; 
+import { printSilence, validate } from "../src/prints"; 
 
 export const printTests = () => {
 const mockConsoleLog = () => {
@@ -20,14 +20,15 @@ const mockConsoleLog = () => {
 };
 
 try {
-  console.log("Testing errorStatus...");
+  console.log("Testing validate...");
 
-  assert.strictEqual(errorStatus({ statusCode: 400, url: "https://example.com", start: Date.now(), latency: 200, slow: false }), true);
-  assert.strictEqual(errorStatus({ statusCode: 500, url: "https://example.com", start: Date.now(), latency: 200, slow: false  }), true);
-  assert.strictEqual(errorStatus({ statusCode: 200, url: "https://example.com", start: Date.now(), latency: 200, slow: false }), false);
-  assert.strictEqual(errorStatus({ statusCode: 304, url: "https://example.com", start: Date.now(), latency: 200, slow: false  }), true);
+  assert.strictEqual(validate({ statusCode: 400, url: "https://example.com", start: Date.now(), latency: 200, slow: false }), true);
+  assert.strictEqual(validate({ statusCode: 500, url: "https://example.com", start: Date.now(), latency: 200, slow: false  }), true);
+  assert.strictEqual(validate({ statusCode: 200, url: "https://example.com", start: Date.now(), latency: 200, slow: false }), false);
+  assert.strictEqual(validate({ statusCode: 304, url: "https://example.com", start: Date.now(), latency: 200, slow: false  }), true);
+  assert.strictEqual(validate({ statusCode: 200, url: "https://example.com", start: Date.now(), latency: 200, slow: true  }), true);
 
-  console.log("Test for errorStatus Done!");
+  console.log("Test for validade Done!");
 
   console.log("Testing printSilence...");
 
@@ -35,12 +36,16 @@ try {
     { statusCode: 400, url: "https://example.com", start: Date.now(), latency: 200, slow: false },
     { statusCode: 400, url: "https://example.com", start: Date.now(), latency: 200, slow: false },
     { statusCode: 500, url: "https://example.com", start: Date.now(), latency: 200, slow: false  },
+    { statusCode: 200, url: "https://example.com", start: Date.now(), latency: 200, slow: true  },
+    { statusCode: 200, url: "https://example.com", start: Date.now(), latency: 200, slow: false  },
   ];
 
   const expectedOutput = [
     { statusCode: 400, url: "https://example.com", start: Date.now(), latency: 200, slow: false },
     { statusCode: 400, url: "https://example.com", start: Date.now(), latency: 200, slow: false },
     { statusCode: 500, url: "https://example.com", start: Date.now(), latency: 200, slow: false  },
+    { statusCode: 200, url: "https://example.com", start: Date.now(), latency: 200, slow: true  },
+
   ];
 
   const mock = mockConsoleLog();
