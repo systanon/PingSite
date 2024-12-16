@@ -25,7 +25,7 @@ const processCheck = async (
       const url = _urls.pop();
       if (!url) break;
 
-      const res: Res = await client(url);
+      const res: Res = await client(url, config.latencyLimit);
 
       responses.push(res);
     }
@@ -58,7 +58,6 @@ const run = async (
         lastExecutionTime = Date.now();
         print(responses);
       }
-      await new Promise((resolve) => setTimeout(resolve, 5000));
     } catch (error) {
       console.error('Error in processLoop:', error);
       break;

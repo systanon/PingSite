@@ -15,7 +15,7 @@ declare global {
     slow: boolean;
   };
 
-  type Client = (url: string) => Promise<Res>;
+  type Client = (url: string, latencyLimit: number) => Promise<Res>;
 
   type CliConfig = {
     success: boolean;

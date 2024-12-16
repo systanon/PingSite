@@ -1,4 +1,4 @@
-export const client: Client = async (url: string) => {
+export const client: Client = async (url: string, latencyLimit: number) => {
   const start = Date.now();
 
   const statusCode: number = await fetch(url)
@@ -16,6 +16,6 @@ export const client: Client = async (url: string) => {
     statusCode,
     start,
     latency,
-    slow: false,
+    slow: latency >= latencyLimit,
   };
 };
