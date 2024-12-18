@@ -8,9 +8,10 @@ program
   .option('-c, --config <path>', 'specify the file containing config')
   .option('-v, --verbose', 'flag to print result');
 
-program.parse();
-
 export const getConfig = (): CliConfig => {
+  
+  program.parse();
+
   try {
     const options = program.opts() as ProgramOptions;
     const verbose = options.verbose ?? false
