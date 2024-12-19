@@ -7,7 +7,7 @@
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "test": "npx tsx test/index.test.ts",
+    "test": "tsx --test ./test/*.test.ts",
     "build": "tsc && tsc-alias",
     "execution": "node ./dist/app.js -f url_list.txt -c config.json -v"
   },
