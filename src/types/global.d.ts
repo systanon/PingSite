@@ -1,5 +1,4 @@
 declare global {
-
   type Config = {
     interval: number;
     maxConcurrencyRequest: number;
@@ -24,7 +23,7 @@ declare global {
       interval: number;
       maxConcurrencyRequest: number;
       latencyLimit: number;
-      verbose: boolean
+      verbose: boolean;
     };
     error?: string;
   };
@@ -34,7 +33,6 @@ declare global {
     config: string;
     verbose: boolean;
   }
-  
 }
 
-export {Res}; 
+export { Res };
