@@ -3,6 +3,20 @@
 This utility checks the health of URLs with support for concurrency and customizable configurations.  
 **Requires Node.js version 22 or higher**.  
 
+## Setup
+
+1. After cloning the repo you need install dependencies
+
+```bash
+npm i
+```
+
+1. For run test you need install `tsx`
+
+```bash
+npm install -g tsx        
+```
+
 ---
 
 ## Features  
@@ -17,7 +31,7 @@ This utility checks the health of URLs with support for concurrency and customiz
 
 ## Input Files  
 
-### Example `.txt` file (URL list):  
+### Example `.txt` file (URL list)
 
 ```txt
 https://jsonplaceholder.typicode.com/todos/1  
@@ -30,7 +44,7 @@ https://jsonplaceholder.typicode.com/todos/6
 
 ## Configuration File  
 
-### Example `.json` Configuration File:  
+### Example `.json` Configuration File
 
 ```json
 {
@@ -42,12 +56,14 @@ https://jsonplaceholder.typicode.com/todos/6
 }
 ```
 
-### Parameter Description:
+### Parameter Description
+
 - **interval**: the interval for restarting the URL list check.
 - **maxConcurrencyRequest**: the number of parallel requests.
 - **latencyLimit**: the maximum server response time.
 
-### Example CLI Command:
+### Example CLI Command
+
 ```bash
 node ./dist/app.js -f path_to_file.txt -c path_to_file_with_config.json -v
 ```
