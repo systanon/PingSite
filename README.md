@@ -5,13 +5,13 @@ This utility checks the health of URLs with support for concurrency and customiz
 
 ## Setup
 
-1. After cloning the repo you need install dependencies
+1. After cloning the repository, you need to install dependencies.
 
 ```bash
 npm i
 ```
 
-1. For run test you need install `tsx`
+2. To run tests you need to install `tsx`
 
 ```bash
 npm install -g tsx        
